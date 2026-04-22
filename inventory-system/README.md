@@ -1,74 +1,97 @@
-```bash
-pip install -r requirements.txt
- Inventory Management System API
- Overview
+Flask Inventory Management System
 
-This project is a **Flask-based REST API** for managing inventory in a retail environment. It allows users to perform full CRUD (Create, Read, Update, Delete) operations on inventory items and integrates with an external API to fetch real-time product data.
+A simple Inventory Management System built with Flask (REST API), a Python CLI client, and pytest tests.
+It supports CRUD operations and integration with an external product API (OpenFoodFacts).
 
-The system also includes a **CLI (Command Line Interface)** for interacting with the API and a **testing suite** to ensure reliability.
+   Features
+Add, view, update, and delete inventory items
+REST API built with Flask
+CLI client (Python-based)
+External product lookup using barcode API
+Automated tests using pytest
+In-memory storage (no database required)
 
-Features
+Install dependencies
+pip install flask requests pytest
 
-Create, read, update, and delete inventory items
-Integration with OpenFoodFacts API for product data
-CLI interface for user interaction
-Unit testing using pytest
-In-memory database simulation
+     1. Run Flask API Server
 
----
+Start the backend server first:
 
- Technologies Used
+python3 app.py
 
-* Python 3
-* Flask
-* Requests
-* Pytest
-* Git & GitHub
+You should see:
+Running on http://127.0.0.1:5000
 
-CLI Usage
+    Run CLI Application
 
-Run the CLI:
+Open a new terminal and run:
 
-python cli.py
+python3 cli.py
+CLI Menu
+Inventory CLI
+1.View all items
+2.Add item
+3.Update item
+4.Delete item
+5.Fetch from API
+6.Exit
+Example (Add item)
+Choose option: 2
+Name: Milk
+Price: 4.5
+Stock: 10
+Using Postman (API Testing)
 
-Features:
+Make sure Flask is running then you open a new terminal you run the python3 cli.py 
 
-View all items
-Add item
-Update item
-Delete item
- Fetch product from external API
+python3 app.py
+Base URL
+http://127.0.0.1:5000
+>> Get all items
+Method: GET
+URL:
+http://127.0.0.1:5000/inventory
+>>Add item
+Method: POST
+URL:
+http://127.0.0.1:5000/inventory
+Body → raw → JSON:
+{
+  "name": "Milk",
+  "price": 4.5,
+  "stock": 10
+}
+>> Get single item
+Method: GET
+http://127.0.0.1:5000/inventory/1
+>> Update item
+Method: PATCH
+http://127.0.0.1:5000/inventory/1
+Body:
+{
+  "price": 5.5
+}
+>>Delete item
+Method: DELETE
+http://127.0.0.1:5000/inventory/1
+External API (Barcode Lookup)
+Method: GET
+http://127.0.0.1:5000/external/<barcode>
+Example:
+http://127.0.0.1:5000/external/737628064502
+Running Tests
 
+Run all tests using:
 
-how to Run Tests
+python3 -m pytest -v
 
-Run all tests:
+You should see all tests passing.
 
-pytest -v
-
-Expected result:
-
-13 passed
-
-Error Handling
-
- Invalid input returns `400 Bad Request`
- Non-existent items return `404 Not Found`
- External API failures handled gracefully
-
-
-
-Future Improvements
-
- Database integration (SQLite/PostgreSQL)
- Authentication & user roles
- Web frontend (React or HTML/CSS)
-
-Author
-
-Developed as part of a Flask REST API lab project.
-
-
->License
-
-This project is for educational purposes.
+    Also to note is >>
+Data is stored in memory (resets when server restarts)
+Flask must be running before using:
+CLI
+Postman
+Default server runs on:
+http://127.0.0.1:5000
